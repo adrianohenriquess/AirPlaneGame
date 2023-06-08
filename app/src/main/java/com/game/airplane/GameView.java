@@ -16,7 +16,7 @@ public class GameView extends SurfaceView implements Runnable {
 
     private int screenX, screenY;
 
-    private float screenRatioX, screenRatioY;
+    public static float screenRatioX, screenRatioY;
 
     private Paint paint;
 
@@ -27,21 +27,13 @@ public class GameView extends SurfaceView implements Runnable {
         this.screenX = screenX;
         this.screenY = screenY;
 
-        Log.i("Game","Screen x:.." + this.screenX);
-        Log.i("Game","Screen Y:.." + this.screenY);
-
-        this.screenRatioX = 1920f / screenX;
-        this.screenRatioY = 1080f / screenY;
-
-        Log.i("Game","Proporção da tela em relação a X:.." + this.screenRatioX);
-        Log.i("Game","Proporção da tela em relação a Y:.." + this.screenRatioY);
+        screenRatioX = 1920f / screenX;
+        screenRatioY = 1080f / screenY;
 
         background1 = new Background(screenX, screenY, getResources());
         background2 = new Background(screenX, screenY, getResources());
 
-        Log.i("Game","O x do background 2 Antes:.." + this.background2.x);
         background2.x = screenX;
-        Log.i("Game","O x do background 2 Depois:.." + this.background2.x);
         paint = new Paint();
     }
 
@@ -55,17 +47,14 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void update() {
-        //retira de 10 em 10 multiplicado pela porporção da tela do celular
-        background1.x -= 10 * screenRatioX;
-        background2.x -= 10 * screenRatioX;
+        background1.x -= 8;
+        background2.x -= 8;
 
         if (background1.x + background1.background.getWidth() < 0) {
-            Log.i("Game","teste:.." + this.background1.x);
             background1.x = screenX;
         }
 
         if (background2.x + background2.background.getWidth() < 0) {
-            Log.i("Game","teste 2:.." + this.background2.x);
             background2.x = screenX;
         }
     }

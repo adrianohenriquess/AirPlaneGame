@@ -18,11 +18,7 @@ public class GameActivity extends AppCompatActivity {
         Point point = new Point();
         getWindowManager().getDefaultDisplay().getSize(point);
 
-        Log.i("Game","Ponto inicial x:.." + point.x);
-        Log.i("Game","Ponto inicial y:.." + point.y);
-
         gameView = new GameView(this, point.x, point.y);
-
         setContentView(gameView);
     }
 
