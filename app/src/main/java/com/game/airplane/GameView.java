@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 
@@ -47,8 +48,8 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void update() {
-        background1.x -= 8;
-        background2.x -= 8;
+        background1.x -= 12;
+        background2.x -= 12;
 
         if (background1.x + background1.background.getWidth() < 0) {
             background1.x = screenX;
@@ -58,17 +59,13 @@ public class GameView extends SurfaceView implements Runnable {
             background2.x = screenX;
         }
 
-        if (flight.isGoingUp) {
-            flight.y -= 30 * screenRatioY;
-        } else {
-            flight.y += 30 * screenRatioY;
-        }
-
+        //nao deixa passar do limite de cima da tela
         if (flight.y < 0) {
             flight.y = 0;
         }
 
-        if (flight.y > screenY - flight.height) {
+        //não deixa passar do limite de baixo da tela
+        if (flight.y >= screenY - flight.height) {
             flight.y = screenY - flight.height;
         }
 
@@ -112,16 +109,7 @@ public class GameView extends SurfaceView implements Runnable {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                if (event.getX() < screenX / 2) {
-                    flight.isGoingUp = true;
-                }
-                break;
-            case MotionEvent.ACTION_UP:
-                flight.isGoingUp = false;
-                break;
-        }
+        flight.y = (int) event.getY();
         return true;
     }
 }
