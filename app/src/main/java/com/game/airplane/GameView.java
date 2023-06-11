@@ -20,8 +20,6 @@ public class GameView extends SurfaceView implements Runnable {
 
     private Paint paint;
 
-    private Background background1, background2;
-
     public GameView(Context context, int screenX, int screenY) {
         super(context);
         this.screenX = screenX;
@@ -30,10 +28,7 @@ public class GameView extends SurfaceView implements Runnable {
         screenRatioX = 1920f / screenX;
         screenRatioY = 1080f / screenY;
 
-        background1 = new Background(screenX, screenY, getResources());
-        background2 = new Background(screenX, screenY, getResources());
 
-        background2.x = screenX;
         paint = new Paint();
     }
 
@@ -47,24 +42,14 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void update() {
-        background1.x -= 8;
-        background2.x -= 8;
 
-        if (background1.x + background1.background.getWidth() < 0) {
-            background1.x = screenX;
-        }
-
-        if (background2.x + background2.background.getWidth() < 0) {
-            background2.x = screenX;
-        }
     }
 
     private void draw() {
         if (getHolder().getSurface().isValid()) {
             Canvas canvas = getHolder().lockCanvas();
 
-            canvas.drawBitmap(background1.background, background1.x, background1.y, paint);
-            canvas.drawBitmap(background2.background, background2.x, background2.y, paint);
+
 
             getHolder().unlockCanvasAndPost(canvas);
         }
