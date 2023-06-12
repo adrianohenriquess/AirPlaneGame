@@ -110,6 +110,9 @@ public class GameView extends SurfaceView implements Runnable {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         flight.y = (int) event.getY();
+        if (flight.y >= screenY - flight.height) {
+            flight.y = screenY - flight.height;
+        }
         return true;
     }
 }
